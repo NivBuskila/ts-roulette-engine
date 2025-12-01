@@ -54,7 +54,7 @@ A full-stack European roulette game built with **TypeScript**, featuring a **Pha
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/NivBuskila/roulette.git
 cd roulette
 
 # Install backend dependencies
