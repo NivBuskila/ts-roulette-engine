@@ -2,6 +2,7 @@ import { Bet } from '../types';
 import { BettingTable } from '../components/BettingTable';
 import { BalanceDisplay } from '../components/BalanceDisplay';
 import { UIManager } from './UIManager';
+import { MAX_BET } from '../constants/roulette';
 
 export class BettingManager {
     private currentBets: Map<string, Bet> = new Map();
@@ -42,10 +43,17 @@ export class BettingManager {
             return false;
         }
 
+        // Check if this single bet would exceed MAX_BET
+        const existingBet = this.currentBets.get(betKey);
+        const newBetTotal = (existingBet?.amount || 0) + bet.amount;
+        if (newBetTotal > MAX_BET) {
+            this.uiManager.showMessage(`Maximum bet per position is ${MAX_BET}!`, '#ff6b6b');
+            return false;
+        }
+
         // Add or update bet
-        if (this.currentBets.has(betKey)) {
-            const existing = this.currentBets.get(betKey)!;
-            existing.amount += bet.amount;
+        if (existingBet) {
+            existingBet.amount += bet.amount;
         } else {
             this.currentBets.set(betKey, { ...bet });
         }

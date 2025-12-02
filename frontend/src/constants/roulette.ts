@@ -68,3 +68,7 @@ export const EVEN_NUMBERS: number[] = Array.from({ length: 36 }, (_, i) => i + 1
 // Chip values
 export const CHIP_VALUES = [1, 5, 10, 25, 100] as const;
 export type ChipValue = typeof CHIP_VALUES[number];
+
+// Betting limits (must match backend)
+export const MIN_BET = 1;
+export const MAX_BET = 500;
