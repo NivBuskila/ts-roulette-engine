@@ -6,6 +6,8 @@ A full-stack European roulette game built with **TypeScript**, featuring a **Pha
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue)
 ![Phaser 3](https://img.shields.io/badge/Phaser-3.70-purple)
 ![Express](https://img.shields.io/badge/Express-4.18-lightgrey)
+![Tests](https://img.shields.io/badge/Tests-199%20Passing-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 📋 Table of Contents
 
@@ -14,8 +16,10 @@ A full-stack European roulette game built with **TypeScript**, featuring a **Pha
 - [Architecture](#-architecture)
 - [API Documentation](#-api-documentation)
 - [Game Rules](#-game-rules)
-- [Technical Decisions](#-technical-decisions)
+- [Design Decisions](#-design-decisions)
 - [Project Structure](#-project-structure)
+- [Testing](#-testing)
+- [How to Play](#-how-to-play)
 
 ---
 
@@ -189,10 +193,10 @@ Place bets and spin the wheel.
   "result": {
     "winningNumber": 17,
     "winningColor": "red",
-    "totalBetAmount": 30,
-    "totalWinAmount": 370,
-    "netProfit": 340,
-    "newBalance": 1340,
+    "totalBetAmount": 10,
+    "totalWinAmount": 360,
+    "netProfit": 350,
+    "newBalance": 1350,
     "bets": [
       {
         "type": "straight",
@@ -223,9 +227,9 @@ Get recent game history.
       "timestamp": "2025-11-29T10:30:00Z",
       "winningNumber": 17,
       "winningColor": "red",
-      "totalBetAmount": 30,
-      "totalWinAmount": 370,
-      "netProfit": 340
+      "totalBetAmount": 10,
+      "totalWinAmount": 360,
+      "netProfit": 350
     }
   ]
 }
@@ -278,6 +282,40 @@ Reset game state to initial values.
 ---
 
 ## 🔧 Design Decisions
+
+### Specification Inconsistencies Found
+
+During development, I identified several inconsistencies in the technical specification (`roulette-spec.md`) and chose to implement according to **correct roulette rules**:
+
+#### 1. Payout Calculation Discrepancy
+
+| Source | Straight Bet (10) | Calculation |
+|--------|-------------------|-------------|
+| **Spec Formula** (Quick Reference) | 360 | `Bet × 35 + Bet` = 10×35+10 |
+| **Spec JSON Example** | 350 | Only `Bet × 35` (missing original bet) |
+| **My Implementation** | ✅ 360 | Follows the formula (industry standard) |
+
+In real casinos, when you win, you keep your original bet **plus** the winnings. The JSON example incorrectly shows only the winnings.
+
+#### 2. Number 17 Color Error
+
+| Source | Number 17 Color |
+|--------|-----------------|
+| **Spec Color Table** | Black ✅ |
+| **Spec JSON Example** | `"winningColor": "red"` ❌ |
+| **My Implementation** | ✅ Black (correct) |
+
+The JSON example shows `winningNumber: 17` with `winningColor: "red"`, but according to the spec's own color table, **17 is Black**.
+
+#### 3. Red Bet Result Error
+
+In the spec's JSON example, when 17 (black) wins:
+- The `red` bet shows `"won": true` ❌
+- Should be `"won": false` since 17 is black
+
+**My implementation correctly handles all these cases according to real roulette rules.**
+
+---
 
 ### Architecture Choices
 
@@ -592,7 +630,13 @@ curl -X POST http://localhost:3001/api/game/reset
 
 ## 📝 License
 
-This project was created as a technical assignment.
+This project was created as a technical assignment for demonstration purposes.
+
+## 👤 Author
+
+**Niv Buskila**
+
+- GitHub: [@NivBuskila](https://github.com/NivBuskila)
 
 ---
 

@@ -52,7 +52,7 @@ window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
     const currentIsPortrait = window.innerHeight > window.innerWidth;
-    
+
     // If orientation changed, reload the page
     if (currentIsPortrait !== initialIsPortrait) {
       window.location.reload();
