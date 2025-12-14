@@ -25,10 +25,10 @@ This document provides detailed technical specifications for implementing the ro
 
 ### Number Colors
 
-| Color | Numbers |
-|-------|---------|
-| **Green** | 0 |
-| **Red** | 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 |
+| Color     | Numbers                                                            |
+| --------- | ------------------------------------------------------------------ |
+| **Green** | 0                                                                  |
+| **Red**   | 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36  |
 | **Black** | 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 |
 
 ### Game Flow
@@ -47,32 +47,34 @@ This document provides detailed technical specifications for implementing the ro
 
 ### Inside Bets
 
-| Bet Type | Description | Numbers Covered | Payout | Example |
-|----------|-------------|-----------------|--------|---------|
-| **Straight Up** | Single number | 1 | 35:1 | Bet on "17" |
-| **Split** | Two adjacent numbers | 2 | 17:1 | Bet on "17/18" |
-| **Street** | Three numbers in a row | 3 | 11:1 | Bet on "13/14/15" |
-| **Corner** | Four numbers forming a square | 4 | 8:1 | Bet on "13/14/16/17" |
-| **Line** | Two adjacent streets | 6 | 5:1 | Bet on "13/14/15/16/17/18" |
+| Bet Type        | Description                   | Numbers Covered | Payout | Example                    |
+| --------------- | ----------------------------- | --------------- | ------ | -------------------------- |
+| **Straight Up** | Single number                 | 1               | 35:1   | Bet on "17"                |
+| **Split**       | Two adjacent numbers          | 2               | 17:1   | Bet on "17/18"             |
+| **Street**      | Three numbers in a row        | 3               | 11:1   | Bet on "13/14/15"          |
+| **Corner**      | Four numbers forming a square | 4               | 8:1    | Bet on "13/14/16/17"       |
+| **Line**        | Two adjacent streets          | 6               | 5:1    | Bet on "13/14/15/16/17/18" |
 
 ### Outside Bets
 
-| Bet Type | Description | Numbers Covered | Payout | Example |
-|----------|-------------|-----------------|--------|---------|
-| **Column** | Entire column (12 numbers) | 12 | 2:1 | Column 1: 1,4,7,10,13,16,19,22,25,28,31,34 |
-| **Dozen** | First, second, or third dozen | 12 | 2:1 | 1st: 1-12, 2nd: 13-24, 3rd: 25-36 |
-| **Red/Black** | All red or all black numbers | 18 | 1:1 | All red or all black |
-| **Odd/Even** | All odd or all even numbers | 18 | 1:1 | Excludes 0 |
-| **High/Low** | 1-18 (Low) or 19-36 (High) | 18 | 1:1 | Low: 1-18, High: 19-36 |
+| Bet Type      | Description                   | Numbers Covered | Payout | Example                                    |
+| ------------- | ----------------------------- | --------------- | ------ | ------------------------------------------ |
+| **Column**    | Entire column (12 numbers)    | 12              | 2:1    | Column 1: 1,4,7,10,13,16,19,22,25,28,31,34 |
+| **Dozen**     | First, second, or third dozen | 12              | 2:1    | 1st: 1-12, 2nd: 13-24, 3rd: 25-36          |
+| **Red/Black** | All red or all black numbers  | 18              | 1:1    | All red or all black                       |
+| **Odd/Even**  | All odd or all even numbers   | 18              | 1:1    | Excludes 0                                 |
+| **High/Low**  | 1-18 (Low) or 19-36 (High)    | 18              | 1:1    | Low: 1-18, High: 19-36                     |
 
 ### Detailed Number Mapping
 
 **Columns:**
+
 - Column 1: 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34
 - Column 2: 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35
 - Column 3: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36
 
 **Dozens:**
+
 - 1st Dozen: 1-12
 - 2nd Dozen: 13-24
 - 3rd Dozen: 25-36
@@ -98,6 +100,7 @@ GET /balance
 ```
 
 **Response:**
+
 ```json
 {
   "balance": 1000
@@ -113,6 +116,7 @@ POST /game/spin
 ```
 
 **Request Body:**
+
 ```json
 {
   "bets": [
@@ -123,7 +127,9 @@ POST /game/spin
     },
     {
       "type": "red",
-      "numbers": [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36],
+      "numbers": [
+        1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36
+      ],
       "amount": 20
     }
   ]
@@ -131,6 +137,7 @@ POST /game/spin
 ```
 
 **Response (Success):**
+
 ```json
 {
   "success": true,
@@ -151,7 +158,9 @@ POST /game/spin
       },
       {
         "type": "red",
-        "numbers": [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36],
+        "numbers": [
+          1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36
+        ],
         "amount": 20,
         "won": true,
         "payout": 20
@@ -162,6 +171,7 @@ POST /game/spin
 ```
 
 **Response (Insufficient Balance):**
+
 ```json
 {
   "success": false,
@@ -173,6 +183,7 @@ POST /game/spin
 ```
 
 **Response (Invalid Bet):**
+
 ```json
 {
   "success": false,
@@ -192,6 +203,7 @@ GET /game/history?limit=10
 ```
 
 **Response:**
+
 ```json
 {
   "history": [
@@ -224,6 +236,7 @@ POST /game/reset
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -248,12 +261,14 @@ All error responses should follow this format:
 ```
 
 **Standard Error Codes:**
+
 - `INSUFFICIENT_BALANCE` - Total bet exceeds available balance
 - `INVALID_BET` - Bet structure is invalid (negative amount, empty numbers, etc.)
 - `INVALID_BET_TYPE` - Unknown bet type
 - `SERVER_ERROR` - Internal server error
 
 **HTTP Status Codes:**
+
 - `200` - Success
 - `400` - Invalid request (bad bet structure, insufficient balance)
 - `500` - Server error
@@ -269,32 +284,32 @@ All error responses should follow this format:
 ```typescript
 interface Bet {
   type: BetType;
-  numbers: number[];  // Array of numbers covered by this bet
-  amount: number;     // Bet amount in currency units
+  numbers: number[]; // Array of numbers covered by this bet
+  amount: number; // Bet amount in currency units
 }
 
 type BetType =
-  | 'straight'  // Single number
-  | 'split'     // Two adjacent numbers
-  | 'street'    // Three numbers in a row
-  | 'corner'    // Four numbers in a square
-  | 'line'      // Six numbers (two streets)
-  | 'column'    // Column (12 numbers)
-  | 'dozen'     // Dozen (12 numbers)
-  | 'red'       // All red numbers
-  | 'black'     // All black numbers
-  | 'odd'       // All odd numbers
-  | 'even'      // All even numbers
-  | 'low'       // 1-18
-  | 'high';     // 19-36
+  | "straight" // Single number
+  | "split" // Two adjacent numbers
+  | "street" // Three numbers in a row
+  | "corner" // Four numbers in a square
+  | "line" // Six numbers (two streets)
+  | "column" // Column (12 numbers)
+  | "dozen" // Dozen (12 numbers)
+  | "red" // All red numbers
+  | "black" // All black numbers
+  | "odd" // All odd numbers
+  | "even" // All even numbers
+  | "low" // 1-18
+  | "high"; // 19-36
 ```
 
 #### Bet Result Interface
 
 ```typescript
 interface BetResult extends Bet {
-  won: boolean;       // Did this bet win?
-  payout: number;     // Amount won (includes original bet if won)
+  won: boolean; // Did this bet win?
+  payout: number; // Amount won (includes original bet if won)
 }
 ```
 
@@ -302,13 +317,13 @@ interface BetResult extends Bet {
 
 ```typescript
 interface GameResult {
-  winningNumber: number;      // 0-36
-  winningColor: 'red' | 'black' | 'green';
-  totalBetAmount: number;     // Sum of all bet amounts
-  totalWinAmount: number;     // Sum of all payouts
-  netProfit: number;          // totalWinAmount - totalBetAmount
-  newBalance: number;         // Updated balance after spin
-  bets: BetResult[];          // Results for each bet placed
+  winningNumber: number; // 0-36
+  winningColor: "red" | "black" | "green";
+  totalBetAmount: number; // Sum of all bet amounts
+  totalWinAmount: number; // Sum of all payouts
+  netProfit: number; // totalWinAmount - totalBetAmount
+  newBalance: number; // Updated balance after spin
+  bets: BetResult[]; // Results for each bet placed
 }
 ```
 
@@ -316,9 +331,9 @@ interface GameResult {
 
 ```typescript
 interface GameHistoryEntry {
-  timestamp: string;          // ISO 8601 format
+  timestamp: string; // ISO 8601 format
   winningNumber: number;
-  winningColor: 'red' | 'black' | 'green';
+  winningColor: "red" | "black" | "green";
   totalBetAmount: number;
   totalWinAmount: number;
   netProfit: number;
@@ -391,6 +406,7 @@ type ApiResponse<T> = SuccessResponse<T> | ErrorResponse;
 ## Frontend Architecture
 
 **Wheel Number Order (clockwise from top):**
+
 ```
 0-32-15-19-4-21-2-25-17-34-6-27-13-36-11-30-8-23-10-5-24-16-33-1-20-14-31-9-22-18-29-7-28-12-35-3-26
 ```
@@ -407,13 +423,13 @@ Each number occupies 360/37 ≈ 9.73 degrees. The wheel must land on the winning
 The backend should use a **seeded random number generator** that can be verified. Here's a simple implementation approach:
 
 ```typescript
-import crypto from 'crypto';
+import crypto from "crypto";
 
 interface SpinResult {
-  serverSeed: string;      // Secret seed (hashed before revealing)
-  clientSeed: string;      // Can be provided by client or generated
-  nonce: number;           // Increments with each spin
-  winningNumber: number;   // 0-36
+  serverSeed: string; // Secret seed (hashed before revealing)
+  clientSeed: string; // Can be provided by client or generated
+  nonce: number; // Increments with each spin
+  winningNumber: number; // 0-36
 }
 
 function generateWinningNumber(
@@ -425,7 +441,7 @@ function generateWinningNumber(
   const combined = `${serverSeed}-${clientSeed}-${nonce}`;
 
   // Create hash
-  const hash = crypto.createHash('sha256').update(combined).digest('hex');
+  const hash = crypto.createHash("sha256").update(combined).digest("hex");
 
   // Convert first 8 characters to number
   const hexValue = parseInt(hash.substring(0, 8), 16);
@@ -436,6 +452,7 @@ function generateWinningNumber(
 ```
 
 **Why this matters:**
+
 - Players can verify results weren't manipulated
 - Shows understanding of fair gaming practices
 - Industry standard for crypto/provably fair games
@@ -444,25 +461,25 @@ function generateWinningNumber(
 This project implements the provably fair system described above using HMAC-SHA256 to ensure transparency and fairness.
 **Security Note:** The server seed is automatically rotated (regenerated) after every spin where it is revealed. This ensures that even though the player can verify the past spin using the revealed seed, they cannot use it to predict the next spin's outcome.
 
-
 ---
 
 ## Quick Reference: Payout Multipliers
 
-| Bet Type | Multiplier | Formula |
-|----------|------------|---------|
-| Straight | 35:1 | Bet × 35 + Bet |
-| Split | 17:1 | Bet × 17 + Bet |
-| Street | 11:1 | Bet × 11 + Bet |
-| Corner | 8:1 | Bet × 8 + Bet |
-| Line | 5:1 | Bet × 5 + Bet |
-| Column | 2:1 | Bet × 2 + Bet |
-| Dozen | 2:1 | Bet × 2 + Bet |
-| Even Money | 1:1 | Bet × 1 + Bet |
+| Bet Type   | Multiplier | Formula        |
+| ---------- | ---------- | -------------- |
+| Straight   | 35:1       | Bet × 35 + Bet |
+| Split      | 17:1       | Bet × 17 + Bet |
+| Street     | 11:1       | Bet × 11 + Bet |
+| Corner     | 8:1        | Bet × 8 + Bet  |
+| Line       | 5:1        | Bet × 5 + Bet  |
+| Column     | 2:1        | Bet × 2 + Bet  |
+| Dozen      | 2:1        | Bet × 2 + Bet  |
+| Even Money | 1:1        | Bet × 1 + Bet  |
 
 **Note:** "Even money" bets include: Red/Black, Odd/Even, High/Low
 
 **Payout Calculation:**
+
 - If bet **wins**: Return `betAmount × multiplier + betAmount` (original bet + winnings)
 - If bet **loses**: Return `0`
 

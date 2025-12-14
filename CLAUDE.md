@@ -34,12 +34,12 @@ A full-stack **European Roulette** game (single zero: 0-36) designed as a **tech
 
 ### Tech Stack
 
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **Frontend** | Phaser 3 + TypeScript + Vite | Game rendering, UI, animations |
-| **Backend** | Express + TypeScript | Game logic, API, RNG, validation |
-| **Types** | Shared TypeScript interfaces | Type safety across stack |
-| **Testing** | Jest (backend) + Vitest (frontend) | Unit & integration tests |
+| Component    | Technology                         | Purpose                          |
+| ------------ | ---------------------------------- | -------------------------------- |
+| **Frontend** | Phaser 3 + TypeScript + Vite       | Game rendering, UI, animations   |
+| **Backend**  | Express + TypeScript               | Game logic, API, RNG, validation |
+| **Types**    | Shared TypeScript interfaces       | Type safety across stack         |
+| **Testing**  | Jest (backend) + Vitest (frontend) | Unit & integration tests         |
 
 ### Key Statistics
 
@@ -110,13 +110,13 @@ roulette/
 
 ### Directory Purpose
 
-| Directory | Purpose | Key Principle |
-|-----------|---------|---------------|
-| `backend/services/` | Core game logic | Server authority - all outcomes calculated here |
-| `frontend/services/` | API communication | Stateless, no Phaser dependency |
-| `frontend/managers/` | Game state & UI | Stateful, Phaser-dependent, scene lifecycle |
-| `frontend/components/` | Visual elements | Encapsulated Phaser objects |
-| `shared/` | Type definitions | Single source of truth |
+| Directory              | Purpose           | Key Principle                                   |
+| ---------------------- | ----------------- | ----------------------------------------------- |
+| `backend/services/`    | Core game logic   | Server authority - all outcomes calculated here |
+| `frontend/services/`   | API communication | Stateless, no Phaser dependency                 |
+| `frontend/managers/`   | Game state & UI   | Stateful, Phaser-dependent, scene lifecycle     |
+| `frontend/components/` | Visual elements   | Encapsulated Phaser objects                     |
+| `shared/`              | Type definitions  | Single source of truth                          |
 
 ---
 
@@ -170,20 +170,20 @@ roulette/
 
 ```typescript
 // frontend/src/types/index.ts
-export * from '../../../shared/types';
+export * from "../../../shared/types";
 
 // backend/src/types/index.ts
-export * from '../../../shared/types';
+export * from "../../../shared/types";
 ```
 
 **Benefit**: API contracts are enforced at compile time. Impossible to have type drift.
 
 #### 2. Frontend: `managers/` vs `services/` Separation
 
-| Directory | Characteristics | Examples |
-|-----------|----------------|----------|
-| `services/` | Stateless, no Phaser dependency, pure functions | `api.service.ts` |
-| `managers/` | Stateful, Phaser-dependent, scene lifecycle | `BettingManager`, `UIManager` |
+| Directory   | Characteristics                                 | Examples                      |
+| ----------- | ----------------------------------------------- | ----------------------------- |
+| `services/` | Stateless, no Phaser dependency, pure functions | `api.service.ts`              |
+| `managers/` | Stateful, Phaser-dependent, scene lifecycle     | `BettingManager`, `UIManager` |
 
 **Why**: `api.service.ts` can be tested in isolation or used in CLI. Managers require Phaser scene context.
 
@@ -222,19 +222,29 @@ All types are defined in `shared/types.ts`. Key interfaces:
 
 ```typescript
 type BetType =
-  | 'straight'  | 'split'   | 'street'  | 'corner'  | 'line'   // Inside
-  | 'column'    | 'dozen'                                       // 2:1
-  | 'red'       | 'black'   | 'odd'     | 'even'    | 'low' | 'high';  // 1:1
+  | "straight"
+  | "split"
+  | "street"
+  | "corner"
+  | "line" // Inside
+  | "column"
+  | "dozen" // 2:1
+  | "red"
+  | "black"
+  | "odd"
+  | "even"
+  | "low"
+  | "high"; // 1:1
 
 interface Bet {
   type: BetType;
-  numbers: number[];  // Numbers covered by this bet
-  amount: number;     // Bet amount
+  numbers: number[]; // Numbers covered by this bet
+  amount: number; // Bet amount
 }
 
 interface BetResult extends Bet {
   won: boolean;
-  payout: number;     // Amount won (includes original bet if won)
+  payout: number; // Amount won (includes original bet if won)
 }
 ```
 
@@ -243,7 +253,7 @@ interface BetResult extends Bet {
 ```typescript
 interface GameResult {
   winningNumber: number;
-  winningColor: 'red' | 'black' | 'green';
+  winningColor: "red" | "black" | "green";
   totalBetAmount: number;
   totalWinAmount: number;
   netProfit: number;
@@ -273,10 +283,10 @@ interface ErrorResponse {
 }
 
 type ErrorCode =
-  | 'INSUFFICIENT_BALANCE'
-  | 'INVALID_BET'
-  | 'INVALID_BET_TYPE'
-  | 'SERVER_ERROR';
+  | "INSUFFICIENT_BALANCE"
+  | "INVALID_BET"
+  | "INVALID_BET_TYPE"
+  | "SERVER_ERROR";
 ```
 
 ### Type Safety Rules
@@ -364,9 +374,9 @@ npm run preview   # Preview production build
 
 **Backend:**
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `3001` | Backend server port |
+| Variable | Default | Description         |
+| -------- | ------- | ------------------- |
+| `PORT`   | `3001`  | Backend server port |
 
 **Setting port (if 3001 is in use):**
 
@@ -393,9 +403,9 @@ $env:PORT=3002; npm run dev
 **Test Structure**:
 
 ```typescript
-describe('Service Name', () => {
-  describe('function name', () => {
-    it('should handle specific case', () => {
+describe("Service Name", () => {
+  describe("function name", () => {
+    it("should handle specific case", () => {
       // Arrange
       const input = createTestData();
 
@@ -424,16 +434,16 @@ describe('Service Name', () => {
 **Test Structure**:
 
 ```typescript
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from "vitest";
 
-describe('Component Name', () => {
+describe("Component Name", () => {
   let component: ComponentType;
 
   beforeEach(() => {
     component = new ComponentType(mockScene);
   });
 
-  it('should behave correctly', () => {
+  it("should behave correctly", () => {
     // Test implementation
   });
 });
@@ -471,6 +481,7 @@ http://localhost:3001/api
 Get current player balance.
 
 **Response:**
+
 ```json
 {
   "balance": 1000
@@ -482,6 +493,7 @@ Get current player balance.
 Place bets and spin the wheel.
 
 **Request:**
+
 ```json
 {
   "bets": [
@@ -492,7 +504,9 @@ Place bets and spin the wheel.
     },
     {
       "type": "red",
-      "numbers": [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36],
+      "numbers": [
+        1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36
+      ],
       "amount": 20
     }
   ]
@@ -500,6 +514,7 @@ Place bets and spin the wheel.
 ```
 
 **Response (Success):**
+
 ```json
 {
   "success": true,
@@ -531,6 +546,7 @@ Place bets and spin the wheel.
 ```
 
 **Response (Error):**
+
 ```json
 {
   "success": false,
@@ -546,6 +562,7 @@ Place bets and spin the wheel.
 Get recent game history.
 
 **Response:**
+
 ```json
 {
   "history": [
@@ -566,6 +583,7 @@ Get recent game history.
 Reset game state (balance, history) to initial values.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -578,6 +596,7 @@ Reset game state (balance, history) to initial values.
 Get server seed hash for next spin (provably fair preview).
 
 **Response:**
+
 ```json
 {
   "serverSeedHash": "a3f5c9..."
@@ -589,6 +608,7 @@ Get server seed hash for next spin (provably fair preview).
 Get verification data for last spin.
 
 **Response:**
+
 ```json
 {
   "serverSeed": "...",
@@ -601,12 +621,12 @@ Get verification data for last spin.
 
 ### Error Codes
 
-| Code | Description | HTTP Status |
-|------|-------------|-------------|
-| `INSUFFICIENT_BALANCE` | Total bet > available balance | 400 |
-| `INVALID_BET` | Bet structure invalid | 400 |
-| `INVALID_BET_TYPE` | Unknown bet type | 400 |
-| `SERVER_ERROR` | Internal server error | 500 |
+| Code                   | Description                   | HTTP Status |
+| ---------------------- | ----------------------------- | ----------- |
+| `INSUFFICIENT_BALANCE` | Total bet > available balance | 400         |
+| `INVALID_BET`          | Bet structure invalid         | 400         |
+| `INVALID_BET_TYPE`     | Unknown bet type              | 400         |
+| `SERVER_ERROR`         | Internal server error         | 500         |
 
 ---
 
@@ -625,6 +645,7 @@ Server entry point. Starts Express server on specified port.
 Express application configuration.
 
 **Responsibilities**:
+
 - Middleware setup (CORS, JSON parsing)
 - Route registration
 - Error handling
@@ -635,6 +656,7 @@ Express application configuration.
 **Core game orchestrator.**
 
 **Responsibilities**:
+
 - Balance management (`getBalance`, `resetGame`)
 - Game history tracking
 - Spin execution (`executeSpin`)
@@ -643,6 +665,7 @@ Express application configuration.
 **State**: Maintains in-memory `balance`, `gameHistory`, `lastSpinData`.
 
 **Key Functions**:
+
 - `executeSpin(bets)` - Validates, spins, calculates payouts, updates balance
 - `getBalance()` - Returns current balance
 - `getHistory(limit)` - Returns recent game history
@@ -655,12 +678,14 @@ Express application configuration.
 **Algorithm**: HMAC-SHA256 with modulo bias correction
 
 **Formula**:
+
 ```
 hash = HMAC_SHA256(serverSeed, clientSeed + ":" + nonce)
 result = parseInt(hash.substring(0, 8), 16) % 37
 ```
 
 **Key Functions**:
+
 - `spin()` - Generates winning number (0-36)
 - `getServerSeedHash()` - Returns SHA-256 hash of server seed (for preview)
 - `reset()` - Generates new server seed
@@ -670,11 +695,13 @@ result = parseInt(hash.substring(0, 8), 16) % 37
 **Bet validation orchestrator.**
 
 **Responsibilities**:
+
 - Validates bet structure (type, numbers, amount)
 - Checks balance sufficiency
 - Delegates to specialized validators
 
 **Key Function**:
+
 - `validateBets(bets, balance)` - Returns `ValidationResult`
 
 #### `backend/src/services/validators/inside-bets.validator.ts`
@@ -686,6 +713,7 @@ result = parseInt(hash.substring(0, 8), 16) % 37
 **Strategy**: Mathematical validation instead of lookup tables.
 
 Example (split validation):
+
 ```typescript
 // Horizontal: same row, adjacent columns
 if (b - a === 1 && Math.ceil(a / 3) === Math.ceil(b / 3))
@@ -707,10 +735,12 @@ if (b - a === 3)
 **Payout calculation.**
 
 **Key Functions**:
+
 - `calculatePayouts(bets, winningNumber)` - Returns `BetResult[]`
 - `calculateTotals(betResults)` - Returns `{ totalWinAmount, netProfit }`
 
 **Formula**:
+
 ```
 payout = bet.amount * multiplier + bet.amount  // (if won)
 payout = 0  // (if lost)
@@ -721,6 +751,7 @@ payout = 0  // (if lost)
 **Game constants and validation helpers.**
 
 **Exports**:
+
 - `RED_NUMBERS`, `BLACK_NUMBERS`, `GREEN_NUMBERS`
 - `WHEEL_ORDER` - European wheel arrangement
 - `PAYOUT_MULTIPLIERS` - Payout map for all bet types
@@ -747,12 +778,14 @@ payout = 0  // (if lost)
 **Main game scene (orchestrator).**
 
 **Responsibilities**:
+
 - Creates and coordinates all components
 - Manages game state (balance, isSpinning)
 - Handles spin flow
 - Loads initial data from API
 
 **Key Components**:
+
 - `Wheel` - Roulette wheel
 - `BettingTable` - Betting interface
 - `ChipSelector` - Chip picker
@@ -760,6 +793,7 @@ payout = 0  // (if lost)
 - `HistoryDisplay` - History UI
 
 **Managers**:
+
 - `UIManager` - UI state & buttons
 - `EffectsManager` - Visual effects (particles, etc.)
 - `BettingManager` - Bet placement logic
@@ -769,11 +803,13 @@ payout = 0  // (if lost)
 **Roulette wheel component.**
 
 **Responsibilities**:
+
 - Renders wheel graphics
 - Animates spin to winning number
 - Calculates rotation angles based on `WHEEL_ORDER`
 
 **Key Method**:
+
 - `spin(winningNumber, duration)` - Animates wheel to number
 
 #### `frontend/src/components/BettingTable.ts`
@@ -781,11 +817,13 @@ payout = 0  // (if lost)
 **Betting table component.**
 
 **Responsibilities**:
+
 - Renders betting table layout
 - Handles click detection for bet placement
 - Manages chip display on table
 
 **Sub-components**:
+
 - `BettingZoneFactory` - Calculates clickable zones (pure logic)
 - `TableRenderer` - Renders static table graphics
 - `ChipRenderer` - Renders dynamic chip graphics
@@ -815,11 +853,13 @@ payout = 0  // (if lost)
 **Bet placement logic manager.**
 
 **Responsibilities**:
+
 - Manages current bets (add, clear, repeat)
 - Validates bet placement against balance
 - Updates UI after bet changes
 
 **Key Methods**:
+
 - `placeBet(bet)` - Adds bet to current bets
 - `clearBets()` - Removes all bets
 - `repeatLastBet()` - Places last bets again
@@ -831,11 +871,13 @@ payout = 0  // (if lost)
 **UI state manager.**
 
 **Responsibilities**:
+
 - Creates and manages buttons (SPIN, CLEAR, REPEAT)
 - Updates button states (enabled/disabled)
 - Shows messages to player
 
 **Key Methods**:
+
 - `createButtons(onSpin, onClear, onRepeat)`
 - `setButtonsEnabled(enabled)`
 - `showMessage(text, color)`
@@ -845,11 +887,13 @@ payout = 0  // (if lost)
 **Visual effects manager.**
 
 **Responsibilities**:
+
 - Particle effects (win/lose)
 - Confetti animations
 - Visual feedback
 
 **Key Methods**:
+
 - `createParticleTextures()` - Creates particle graphics
 - `showWinEffect(x, y)` - Displays win animation
 - `showLoseEffect()` - Displays lose animation
@@ -861,6 +905,7 @@ payout = 0  // (if lost)
 **No Phaser dependency** - Can be used in CLI, tests, etc.
 
 **Key Functions**:
+
 - `getBalance()` - Fetches balance
 - `placeBetsAndSpin(bets)` - Sends spin request
 - `getGameHistory(limit)` - Fetches history
@@ -875,10 +920,12 @@ payout = 0  // (if lost)
 ### TypeScript
 
 1. **No `any` types** in production code
+
    - Use `unknown` and type guards if type is truly unknown
    - Use generics for flexible but type-safe code
 
 2. **Explicit return types** for public functions
+
    ```typescript
    export function calculatePayout(bet: Bet): number {
      // ...
@@ -886,6 +933,7 @@ payout = 0  // (if lost)
    ```
 
 3. **Use `const` assertions** for literal types
+
    ```typescript
    export const RED_NUMBERS = [1, 3, 5, ...] as const;
    ```
@@ -897,18 +945,19 @@ payout = 0  // (if lost)
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|-----------|---------|
-| Files | kebab-case | `game.service.ts`, `betting-table.ts` |
-| Classes | PascalCase | `GameScene`, `BettingTable` |
-| Interfaces | PascalCase | `Bet`, `GameResult` |
-| Functions | camelCase | `executeSpin`, `calculatePayout` |
-| Constants | UPPER_SNAKE_CASE | `INITIAL_BALANCE`, `RED_NUMBERS` |
-| Types | PascalCase | `BetType`, `RouletteColor` |
+| Type       | Convention       | Example                               |
+| ---------- | ---------------- | ------------------------------------- |
+| Files      | kebab-case       | `game.service.ts`, `betting-table.ts` |
+| Classes    | PascalCase       | `GameScene`, `BettingTable`           |
+| Interfaces | PascalCase       | `Bet`, `GameResult`                   |
+| Functions  | camelCase        | `executeSpin`, `calculatePayout`      |
+| Constants  | UPPER_SNAKE_CASE | `INITIAL_BALANCE`, `RED_NUMBERS`      |
+| Types      | PascalCase       | `BetType`, `RouletteColor`            |
 
 ### File Organization
 
 **Each file should have**:
+
 1. File-level JSDoc comment describing purpose
 2. Imports grouped by type (external, internal, types)
 3. Constants before functions
@@ -916,6 +965,7 @@ payout = 0  // (if lost)
 5. Clear separation of concerns
 
 **Example**:
+
 ```typescript
 /**
  * Game Service
@@ -923,11 +973,11 @@ payout = 0  // (if lost)
  */
 
 // External imports
-import express from 'express';
+import express from "express";
 
 // Internal imports
-import { rngService } from './rng.service';
-import { Bet, GameResult } from '../types';
+import { rngService } from "./rng.service";
+import { Bet, GameResult } from "../types";
 
 // Constants
 const INITIAL_BALANCE = 1000;
@@ -946,6 +996,7 @@ function updateBalance(amount: number): void {
 ### Comments
 
 1. **Use JSDoc** for public APIs
+
    ```typescript
    /**
     * Calculate payout for a winning bet
@@ -959,6 +1010,7 @@ function updateBalance(amount: number): void {
    ```
 
 2. **Inline comments** for complex logic only
+
    ```typescript
    // Modulo bias correction: reject values above threshold
    if (value > MAX_UINT32 - (MAX_UINT32 % 37)) {
@@ -967,6 +1019,7 @@ function updateBalance(amount: number): void {
    ```
 
 3. **Don't comment obvious code**
+
    ```typescript
    // BAD: Increment counter
    counter++;
@@ -978,25 +1031,27 @@ function updateBalance(amount: number): void {
 ### Error Handling
 
 **Backend**:
+
 ```typescript
 if (!isValid) {
   return {
     success: false,
     error: {
-      code: 'INVALID_BET',
-      message: 'Bet structure is invalid'
-    }
+      code: "INVALID_BET",
+      message: "Bet structure is invalid",
+    },
   };
 }
 ```
 
 **Frontend**:
+
 ```typescript
 try {
   const result = await api.placeBetsAndSpin(bets);
   // Handle success
 } catch (error) {
-  console.error('Spin failed:', error);
+  console.error("Spin failed:", error);
   // Show error to user
 }
 ```
@@ -1018,19 +1073,22 @@ try {
 **Example**: Add "basket" bet (0, 1, 2, 3)
 
 1. **Update shared types** (`shared/types.ts`):
+
    ```typescript
    type BetType = ... | 'basket';
    ```
 
 2. **Add payout multiplier** (`backend/src/constants/roulette.ts`):
+
    ```typescript
    export const PAYOUT_MULTIPLIERS: Record<BetType, number> = {
      // ...
-     basket: 8,  // 8:1 payout
+     basket: 8, // 8:1 payout
    };
    ```
 
 3. **Add validation** (`backend/src/services/validators/inside-bets.validator.ts`):
+
    ```typescript
    case 'basket':
      return isValidBasket(bet.numbers);
@@ -1039,6 +1097,7 @@ try {
 4. **Add payout logic** (automatic if multiplier defined)
 
 5. **Add frontend UI** (`frontend/src/components/BettingTable.ts`):
+
    - Add clickable zone
    - Add bet creation logic
 
@@ -1063,6 +1122,7 @@ try {
 **Example**: Add GET `/stats` endpoint
 
 1. **Define types** (`shared/types.ts`):
+
    ```typescript
    export interface StatsResponse {
      totalSpins: number;
@@ -1071,6 +1131,7 @@ try {
    ```
 
 2. **Add service function** (`backend/src/services/game.service.ts`):
+
    ```typescript
    export function getStats(): StatsResponse {
      // Implementation
@@ -1078,11 +1139,13 @@ try {
    ```
 
 3. **Add route** (`backend/src/routes/game.routes.ts`):
+
    ```typescript
-   router.get('/stats', gameController.getStats);
+   router.get("/stats", gameController.getStats);
    ```
 
 4. **Add controller** (`backend/src/controllers/game.controller.ts`):
+
    ```typescript
    export function getStats(req: Request, res: Response): void {
      const stats = gameService.getStats();
@@ -1091,6 +1154,7 @@ try {
    ```
 
 5. **Add frontend API function** (`frontend/src/services/api.service.ts`):
+
    ```typescript
    export async function getStats(): Promise<StatsResponse> {
      const response = await fetch(`${API_BASE_URL}/game/stats`);
@@ -1136,15 +1200,16 @@ try {
 
 ```typescript
 // CORRECT
-import { Bet, GameResult } from '../types';
+import { Bet, GameResult } from "../types";
 
 // WRONG - Don't import directly from shared
-import { Bet } from '../../shared/types';
+import { Bet } from "../../shared/types";
 ```
 
 ### 2. Service Function Pattern (Backend)
 
 **Structure**:
+
 ```typescript
 export function serviceFunctionName(
   params: ParamType
@@ -1153,7 +1218,7 @@ export function serviceFunctionName(
   if (!isValid) {
     return {
       success: false,
-      error: { code: 'ERROR_CODE', message: '...' }
+      error: { code: "ERROR_CODE", message: "..." },
     };
   }
 
@@ -1161,13 +1226,14 @@ export function serviceFunctionName(
   const result = doWork(params);
 
   // Return success
-  return result;  // or { success: true, result }
+  return result; // or { success: true, result }
 }
 ```
 
 ### 3. Component Pattern (Frontend)
 
 **Phaser component structure**:
+
 ```typescript
 export class ComponentName {
   private scene: Phaser.Scene;
@@ -1196,14 +1262,15 @@ export class ComponentName {
 ### 4. API Call Pattern (Frontend)
 
 **Always use try-catch with user feedback**:
+
 ```typescript
 try {
-  this.uiManager.showMessage('Spinning...', '#FFD700');
+  this.uiManager.showMessage("Spinning...", "#FFD700");
   const result = await placeBetsAndSpin(bets);
   this.handleWin(result);
 } catch (error) {
-  console.error('Spin failed:', error);
-  this.uiManager.showMessage('Connection error!', '#FF0000');
+  console.error("Spin failed:", error);
+  this.uiManager.showMessage("Connection error!", "#FF0000");
   this.isSpinning = false;
 }
 ```
@@ -1211,6 +1278,7 @@ try {
 ### 5. Validation Pattern
 
 **Geometric validation for inside bets**:
+
 ```typescript
 // Instead of hardcoding valid combinations, use math
 export function isValidSplit(numbers: number[]): boolean {
@@ -1239,6 +1307,7 @@ export function isValidSplit(numbers: number[]): boolean {
 **Issue**: Backend won't start because port 3001 is in use.
 
 **Solution**:
+
 ```bash
 # Set different port
 PORT=3002 npm run dev
@@ -1251,6 +1320,7 @@ PORT=3002 npm run dev
 **Issue**: Changes to `shared/types.ts` affect both frontend and backend.
 
 **Solution**:
+
 - After changing types, run both `npm run build` in frontend and backend
 - Fix any TypeScript errors before committing
 - Run all tests
@@ -1276,10 +1346,11 @@ PORT=3002 npm run dev
 **Issue**: Naive `% 37` introduces bias.
 
 **Solution**: RNG service implements bias correction:
+
 ```typescript
 // Reject values above threshold to ensure uniform distribution
 if (value > MAX_UINT32 - (MAX_UINT32 % 37)) {
-  continue;  // Generate new number
+  continue; // Generate new number
 }
 ```
 
@@ -1288,6 +1359,7 @@ if (value > MAX_UINT32 - (MAX_UINT32 % 37)) {
 ### 6. Bet Validation Order Matters
 
 **Pattern**:
+
 1. Validate bet structure (type, numbers, amount)
 2. Validate number combinations (geometric rules)
 3. Calculate total bet amount
@@ -1300,6 +1372,7 @@ if (value > MAX_UINT32 - (MAX_UINT32 % 37)) {
 **Formula**: `payout = amount × multiplier + amount`
 
 **Example**:
+
 - Bet: $10 on straight (35:1)
 - Win: $10 × 35 + $10 = $360 (not $350)
 
@@ -1316,6 +1389,7 @@ if (value > MAX_UINT32 - (MAX_UINT32 % 37)) {
 **Issue**: Type changes in shared types can break runtime API contract.
 
 **Solution**:
+
 - Use shared types for ALL API communication
 - TypeScript will catch mismatches at compile time
 - Always run tests after type changes
