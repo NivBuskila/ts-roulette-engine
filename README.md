@@ -9,6 +9,16 @@ A full-stack European roulette game built with **TypeScript**, featuring a **Pha
 ![Tests](https://img.shields.io/badge/Tests-199%20Passing-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 🎯 Technical Showcase
+
+This project serves as a comprehensive demonstration of **Full Stack Development** skills, focusing on:
+
+- **Clean Architecture**: Strict separation of concerns between game logic (Backend) and presentation (Frontend).
+- **Type Safety**: End-to-end TypeScript usage with shared type definitions and zero `any` types.
+- **Testing Strategy**: High coverage (199+ tests) using Jest and Vitest for both unit and integration testing.
+- **Algorithm Implementation**: Complex validation logic and Provably Fair RNG algorithms.
+- **Modern Tooling**: Vite, Phaser 3, and Express in a monorepo-style structure.
+
 ## 📋 Table of Contents
 
 - [Features](#-features)
@@ -322,20 +332,20 @@ In the spec's JSON example, when 17 (black) wins:
 
 #### Why Express over NestJS?
 
-- **Simplicity**: For a 5-7 day assignment, Express provides faster setup
+- **Simplicity**: Lightweight and flexible for this project scale
 - **Less boilerplate**: Focus on game logic, not framework configuration
 - **Still modular**: Clean service separation without DI framework overhead
 
 #### Why Phaser 3?
 
-- **Required by assignment**: Mandatory for game rendering
+- **Industry Standard**: Powerful framework for 2D web games
 - **Rich features**: Built-in tweening, scene management, input handling
 - **WebGL acceleration**: Smooth 60fps animations
 
 #### Why In-Memory Storage?
 
-- **Assignment specification**: Persistence not required
-- **Simplicity**: No database setup needed
+- **Focus on Logic**: Prioritizing game mechanics over database complexity
+- **Simplicity**: No database setup needed for local deployment
 - **Speed**: Instant reads/writes
 - **Reset capability**: Easy game state reset for testing
 
@@ -509,7 +519,6 @@ roulette/
 │   └── vite.config.ts
 │
 ├── CLAUDE.md                     # AI assistant context
-├── roulette-assignment.md        # Assignment description
 ├── roulette-spec.md              # Technical specification
 └── README.md                     # This file
 ```
@@ -649,7 +658,7 @@ curl -X POST http://localhost:3001/api/game/reset
 
 ## 📝 License
 
-This project was created as a technical assignment for demonstration purposes.
+This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 

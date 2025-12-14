@@ -1,6 +1,6 @@
 # Roulette Technical Specification
 
-This document provides detailed technical specifications for implementing the roulette game assignment.
+This document provides detailed technical specifications for implementing the roulette game.
 
 ---
 
@@ -440,9 +440,9 @@ function generateWinningNumber(
 - Shows understanding of fair gaming practices
 - Industry standard for crypto/provably fair games
 
-**For simplicity in this assignment:**
-- You can use basic `Math.random()` if you document why provably fair would be better
-- OR implement the above for extra credit
+**Implementation:**
+This project implements the provably fair system described above using HMAC-SHA256 to ensure transparency and fairness.
+**Security Note:** The server seed is automatically rotated (regenerated) after every spin where it is revealed. This ensures that even though the player can verify the past spin using the revealed seed, they cannot use it to predict the next spin's outcome.
 
 
 ---
@@ -469,5 +469,3 @@ function generateWinningNumber(
 ---
 
 **End of Technical Specification**
-
-This document should provide all the technical details needed to implement the roulette game. For project context and submission guidelines, refer to `roulette-assignment.md`.

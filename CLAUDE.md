@@ -25,13 +25,12 @@
 
 ### What is This?
 
-A full-stack **European Roulette** game (single zero: 0-36) built as a technical assignment demonstrating:
+A full-stack **European Roulette** game (single zero: 0-36) designed as a **technical showcase** to demonstrate advanced proficiency in:
 
-- Full-stack TypeScript development
-- Game rendering with Phaser 3
-- RESTful API design
-- Provably fair random number generation
-- Clean architecture and separation of concerns
+- **Full-stack Architecture**: Clean separation of concerns and RESTful design.
+- **TypeScript Mastery**: Advanced type patterns and shared schemas.
+- **Game Development**: Complex state management with Phaser 3.
+- **System Design**: Provably fair RNG and robust validation logic.
 
 ### Tech Stack
 
@@ -105,7 +104,6 @@ roulette/
 │   └── types.ts              # Single source of truth for interfaces
 │
 ├── README.md                 # User-facing documentation
-├── roulette-assignment.md    # Original assignment description
 ├── roulette-spec.md          # Technical specification
 └── CLAUDE.md                 # This file (AI assistant guide)
 ```
@@ -1261,7 +1259,7 @@ PORT=3002 npm run dev
 
 **Issue**: Backend state (balance, history) is lost on server restart.
 
-**This is intentional** - no persistence required by assignment spec.
+**This is intentional** - no persistence required for this project scope.
 
 **For development**: Use `/game/reset` endpoint to reset state.
 
@@ -1380,7 +1378,6 @@ curl localhost:3001/api/balance  # Test backend endpoint
 
 ## Additional Resources
 
-- **Assignment Spec**: See `roulette-assignment.md`
 - **Technical Spec**: See `roulette-spec.md`
 - **User Documentation**: See `README.md`
 - **GitHub Repository**: https://github.com/NivBuskila/roulette

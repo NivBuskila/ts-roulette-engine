@@ -114,13 +114,11 @@ export class RNGService {
       nonce: this.nonce,
     };
 
-    // Increment nonce for next spin
-    this.nonce++;
-
-    // Rotate server seed periodically (every 100 spins) for added security
-    if (this.nonce % 100 === 0) {
-      this.rotateServerSeed();
-    }
+    // SECURITY CRITICAL: Since we reveal the serverSeed in the result (to allow verification),
+    // we MUST rotate the server seed immediately for the next spin.
+    // If we didn't do this, the player would know the serverSeed for the next spin
+    // and could predict the outcome since they also know the clientSeed and nonce.
+    this.rotateServerSeed();
 
     return result;
   }
