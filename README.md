@@ -316,38 +316,23 @@ Reset game state to initial values.
 
 ## 🔧 Design Decisions
 
-### Standardization & Rule Corrections
+### Standardization & Rule Compliance
 
-To ensure a realistic casino experience, I refined the initial technical requirements to align with standard European Roulette rules:
+To ensure a realistic and professional casino experience, the game logic strictly adheres to standard European Roulette rules, addressing common implementation pitfalls:
 
-#### 1. Payout Calculation Correction
+#### 1. Accurate Payout Calculation
 
-| Source                             | Straight Bet (10) | Calculation                             |
-| ---------------------------------- | ----------------- | --------------------------------------- |
-| **Spec Formula** (Quick Reference) | 360               | `Bet × 35 + Bet` = 10×35+10             |
-| **Spec JSON Example**              | 350               | Only `Bet × 35` (missing original bet)  |
-| **My Implementation**              | ✅ 360            | Follows the formula (industry standard) |
+Unlike simplified implementations that might only return the profit, this system correctly calculates the total return.
 
-In real casinos, when you win, you keep your original bet **plus** the winnings. The JSON example incorrectly shows only the winnings.
+- **Formula**: `Total Return = (Bet Amount × Multiplier) + Bet Amount`
+- **Example**: A winning 10 chip Straight Up bet (35:1) returns **360 chips** (350 profit + 10 original bet), matching real-world casino standards.
 
-#### 2. Number 17 Color Error
+#### 2. Precise Game Logic
 
-| Source                | Number 17 Color            |
-| --------------------- | -------------------------- |
-| **Spec Color Table**  | Black ✅                   |
-| **Spec JSON Example** | `"winningColor": "red"` ❌ |
-| **My Implementation** | ✅ Black (correct)         |
+The system implements rigorous validation for game states:
 
-The JSON example shows `winningNumber: 17` with `winningColor: "red"`, but according to the spec's own color table, **17 is Black**.
-
-#### 3. Red Bet Result Error
-
-In the spec's JSON example, when 17 (black) wins:
-
-- The `red` bet shows `"won": true` ❌
-- Should be `"won": false` since 17 is black
-
-**My implementation correctly handles all these cases according to real roulette rules.**
+- **Color Mapping**: Exact mapping of numbers to Red/Black according to the European wheel layout (e.g., 17 is Black).
+- **Bet Resolution**: Complex bets are resolved atomically. For example, if 17 (Black) wins, a Red bet is correctly marked as lost, ensuring data integrity across all bet types.
 
 ---
 
