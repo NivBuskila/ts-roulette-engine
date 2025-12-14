@@ -57,7 +57,30 @@ This project serves as a comprehensive demonstration of **Full Stack Development
 
 ---
 
-## 🚀 Quick Start
+## � Screenshots
+
+<div align="center">
+  <img src="assets/screenshot-main.png" alt="Main Game Interface" width="800"/>
+  <p><em>Clean and intuitive betting interface with European Roulette layout</em></p>
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="assets/screenshot-spinning.png" alt="Wheel Spinning Animation" width="800"/>
+  <p><em>Smooth wheel animation and real-time game state updates</em></p>
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="assets/screenshot-win.png" alt="Big Win Celebration" width="800"/>
+  <p><em>Visual feedback and celebration effects for winning bets</em></p>
+</div>
+
+---
+
+## �🚀 Quick Start
 
 ### Prerequisites
 
