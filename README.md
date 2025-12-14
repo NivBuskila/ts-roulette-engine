@@ -57,7 +57,7 @@ This project serves as a comprehensive demonstration of **Full Stack Development
 
 ---
 
-## � Screenshots
+## Screenshots
 
 <div align="center">
   <img src="assets/screenshot-main.png" alt="Main Game Interface" width="800"/>
@@ -80,7 +80,7 @@ This project serves as a comprehensive demonstration of **Full Stack Development
 
 ---
 
-## �🚀 Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
